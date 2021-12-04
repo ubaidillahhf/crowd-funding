@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Icon from "react-native-dynamic-vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -9,6 +9,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
  */
 import { SCREENS } from "@shared-constants";
 // ? Screens
+import SplashScreens from "@screens/splash/SplashScreen";
 import HomeScreen from "@screens/home/HomeScreen";
 import SearchScreen from "@screens/search/SearchScreen";
 import DetailScreen from "@screens/detail/DetailScreen";
@@ -17,10 +18,19 @@ import DetailScreen from "@screens/detail/DetailScreen";
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const Navigation = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   React.useEffect((): any => {
     return () => (isReadyRef.current = false);
   }, []);
+
+  React.useEffect((): void => {
+    setTimeout(() => {
+      setIsLoading(!isLoading);
+    }, 3000);
+  });
 
   const renderTabNavigation = () => {
     return (
@@ -31,7 +41,7 @@ const Navigation = () => {
             if (route.name === SCREENS.HOME) {
               iconName = focused ? "home" : "home-outline";
             } else if (route.name === SCREENS.SEARCH) {
-              iconName = focused ? "ios-search" : "ios-search";
+              iconName = focused ? "ios-search" : "ios-search-outline";
             }
             // You can return any component that you like here!
             return (
@@ -49,6 +59,10 @@ const Navigation = () => {
       </Tab.Navigator>
     );
   };
+
+  if (isLoading) {
+    return <SplashScreens />;
+  }
 
   return (
     <NavigationContainer

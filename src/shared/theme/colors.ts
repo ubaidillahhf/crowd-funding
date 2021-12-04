@@ -12,4 +12,5 @@ export default {
     shadowColor: "#91627b",
   },
   dark: {},
+  blue: "#3A86FF",
 };

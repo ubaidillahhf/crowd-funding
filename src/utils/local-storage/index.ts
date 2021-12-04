@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-community/async-storage";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const storeLocalStorage = (key: string, data: any) =>
   new Promise(async (resolve, reject) => {
     try {
